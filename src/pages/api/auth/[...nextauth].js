@@ -12,7 +12,7 @@ export default NextAuth({
       authorize: async (credentials) => {
         if (
           credentials.email === "user@example.com" &&
-          credentials.password === "password123"
+          credentials.password === "test"
         ) {
           return { id: 1, name: "User", email: "user@example.com" };
         }

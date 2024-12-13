@@ -1,28 +1,59 @@
-"use client";
+'use client';
 
-import React from 'react';
-import { AppBar, Toolbar, Typography, InputBase, Avatar } from '@mui/material';
-import SearchIcon from '@mui/icons-material/Search';
 import Link from 'next/link';
+import { useSession, signOut } from 'next-auth/react';
+import { AppBar, Toolbar, Typography, InputBase, Avatar, Button } from '@mui/material';
+import SearchIcon from '@mui/icons-material/Search';
 
 const Header = () => {
-    return (
-        <AppBar position='static' style={{ background: '#fff', color: '#000' }}>
-            <Toolbar>
-                <Typography variant="h6" style={{ flexGrow: 1 }}>
-                    Drive Saya
-                </Typography>
-                <div style={{ position: 'relative', display: 'flex', alignItems: 'center', marginRight: '20px' }}>
-                    <SearchIcon />
-                    <InputBase placeholder='Search' style={{ marginLeft: '10px' }} />
-                </div>
-                <Avatar alt='User' src="http://agtest.agakcw.my.id/aga.png" />
-                <Link href="/login" style={{ marginLeft: '15px', color: '#000', textDecoration: 'none' }}>
-                    Login
-                </Link>
-            </Toolbar>
-        </AppBar>
-    );
-}
+  const { data: session } = useSession(); // Mendapatkan data session
+
+  return (
+    <AppBar position="static" style={{ background: '#fff', color: '#000' }}>
+      <Toolbar>
+        <Typography variant="h6" style={{ flexGrow: 1 }}>
+          Drive Saya
+        </Typography>
+        <div
+          style={{
+            position: 'relative',
+            display: 'flex',
+            alignItems: 'center',
+            marginRight: '20px',
+          }}
+        >
+          <SearchIcon />
+          <InputBase placeholder="Search" style={{ marginLeft: '10px' }} />
+        </div>
+        <Avatar
+          alt={session?.user?.name || 'User'}
+          src={session?.user?.image || 'http://agtest.agakcw.my.id/aga.png'}
+        />
+        <div style={{ marginLeft: '15px', display: 'flex', alignItems: 'center' }}>
+          {session ? (
+            <>
+              <span style={{ marginRight: '10px' }}>{session.user.name}</span>
+              <Button
+                onClick={() => signOut({ callbackUrl: '/' })} // Logout dan kembali ke homepage
+                variant="contained"
+                style={{
+                  backgroundColor: 'red',
+                  color: '#fff',
+                  textTransform: 'none',
+                }}
+              >
+                Sign Out
+              </Button>
+            </>
+          ) : (
+            <Link href="/login" style={{ textDecoration: 'none', color: '#000' }}>
+              Login
+            </Link>
+          )}
+        </div>
+      </Toolbar>
+    </AppBar>
+  );
+};
 
 export default Header;

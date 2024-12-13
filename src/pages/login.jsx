@@ -1,64 +1,90 @@
-"use client";
+'use client';
 
-import { signIn } from "next-auth/react";
-import { useState } from "react";
-import { useRouter } from "next/router";
+import { signIn } from 'next-auth/react';
+import { useState } from 'react';
+import { useRouter } from 'next/navigation';
 
 const LoginPage = () => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [error, setError] = useState("");
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [error, setError] = useState('');
   const router = useRouter();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const res = await signIn("credentials", {
+    const res = await signIn('credentials', {
       redirect: false,
       email,
       password,
     });
 
     if (res?.error) {
-      setError("Invalid email or password");
+      setError('Email dan password kamu salah');
     } else {
-      router.push("/dashboard");
+      router.push('/dashboard');
     }
   };
 
   return (
-    <div style={{ maxWidth: "400px", margin: "50px auto", textAlign: "center" }}>
-      <h2>Login</h2>
-      {error && <p style={{ color: "red" }}>{error}</p>}
-      <form onSubmit={handleSubmit} style={{ display: "flex", flexDirection: "column", gap: "10px" }}>
-        <input
-          type="email"
-          placeholder="Email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          style={{ padding: "10px", borderRadius: "5px", border: "1px solid #ccc" }}
-          required
-        />
-        <input
-          type="password"
-          placeholder="Password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          style={{ padding: "10px", borderRadius: "5px", border: "1px solid #ccc" }}
-          required
-        />
-        <button
-          type="submit"
-          style={{
-            padding: "10px",
-            borderRadius: "5px",
-            backgroundColor: "#0070f3",
-            color: "#fff",
-            border: "none",
-          }}
-        >
-          Login
-        </button>
-      </form>
+    <div className="flex items-center justify-center min-h-screen bg-gray-100">
+      <div className="w-full max-w-md p-8 space-y-6 bg-white rounded-lg shadow-md">
+        <h2 className="text-2xl font-bold text-center text-gray-700">Login</h2>
+        {error && <p className="text-sm text-red-500 text-center">{error}</p>}
+        <form onSubmit={handleSubmit} className="space-y-4">
+          <div>
+            <label
+              htmlFor="email"
+              className="block mb-2 text-sm font-medium text-gray-600"
+            >
+              Email
+            </label>
+            <input
+              type="email"
+              id="email"
+              placeholder="Enter your email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent text-black"
+              required
+            />
+          </div>
+
+          <div>
+            <label
+              htmlFor="password"
+              className="block mb-2 text-sm font-medium text-gray-600"
+            >
+              Password
+            </label>
+            <input
+              type="password"
+              id="password"
+              placeholder="Enter your password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent text-black"
+              required
+            />
+          </div>
+
+          <button
+            type="submit"
+            className="w-full px-4 py-2 text-white bg-blue-500 rounded-lg hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-offset-2"
+          >
+            Login
+          </button>
+        </form>
+
+        <p className="text-sm text-center text-gray-600">
+          Belum punya akun?{' '}
+          <a
+            href="/register"
+            className="text-blue-500 hover:underline"
+          >
+            Daftar sekarang
+          </a>
+        </p>
+      </div>
     </div>
   );
 };
