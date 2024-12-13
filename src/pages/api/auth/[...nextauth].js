@@ -14,7 +14,7 @@ export default NextAuth({
           credentials.email === "user@example.com" &&
           credentials.password === "test"
         ) {
-          return { id: 1, name: "User", email: "user@example.com" };
+          return { id: 1, name: "Demo", email: "user@example.com" };
         }
         return null;
       },
