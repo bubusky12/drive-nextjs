@@ -11,7 +11,6 @@ export default function Dashboard() {
   const { data: session, status } = useSession();
   const router = useRouter();
 
-  // Redirect ke login jika pengguna tidak login
   useEffect(() => {
     if (status === "unauthenticated") {
       router.push("/login");
