@@ -9,9 +9,9 @@ const Header = () => {
   const { data: session } = useSession(); // Mendapatkan data session
 
   return (
-    <AppBar position="static" style={{ background: '#fff', color: '#000' }}>
+    <AppBar position="static" style={{ background: '#fff', color: '#000000' }}>
       <Toolbar>
-        <Typography variant="h6" style={{ flexGrow: 1 }}>
+        <Typography variant="h6" style={{ flexGrow: 1 }}> 
           Drive Saya
         </Typography>
         <div
@@ -35,7 +35,7 @@ const Header = () => {
               <span style={{ marginRight: '10px' }}>{session.user.name}</span>
               <Button
                 onClick={() => signOut({ callbackUrl: '/' })} // Logout dan kembali ke homepage
-                variant="contained"
+                variant="contained" 
                 style={{
                   backgroundColor: 'red',
                   color: '#fff',
@@ -46,7 +46,7 @@ const Header = () => {
               </Button>
             </>
           ) : (
-            <Link href="/login" style={{ textDecoration: 'none', color: '#000' }}>
+            <Link href="/login" style={{ textDecoration: 'none', color: '#000000' }}>
               Login
             </Link>
           )}
