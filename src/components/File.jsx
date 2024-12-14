@@ -97,11 +97,15 @@ const FileList = () => {
                 </TableCell>
                 <TableCell>{file.modified}</TableCell>
                 <TableCell>
-                  {Array.from({ length: file.users }).map((_, i) => (
-                    <Avatar key={i} style={{ margin: "0 5px", display: "inline-block" }}>
-                      U
-                    </Avatar>
-                  ))}
+                  {file.users > 0 ? (
+                    Array.from({ length: file.users }).map((_, i) => (
+                      <Avatar key={i} style={{ margin: "0 5px", display: "inline-block" }}>
+                        U
+                      </Avatar>
+                    ))
+                  ) : (
+                    <span>No Users</span>
+                  )}
                 </TableCell>
                 <TableCell>{file.size}</TableCell>
                 <TableCell>
