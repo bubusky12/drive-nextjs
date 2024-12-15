@@ -6,7 +6,7 @@ import { AppBar, Toolbar, Typography, InputBase, Avatar, Button } from '@mui/mat
 import SearchIcon from '@mui/icons-material/Search';
 
 const Header = () => {
-  const { data: session } = useSession(); // Mendapatkan data session
+  const { data: session } = useSession();
 
   return (
     <AppBar position="static" style={{ background: '#fff', color: '#000000' }}>
@@ -34,7 +34,7 @@ const Header = () => {
             <>
               <span style={{ marginRight: '10px' }}>{session.user.name}</span>
               <Button
-                onClick={() => signOut({ callbackUrl: '/' })} // Logout dan kembali ke homepage
+                onClick={() => signOut({ callbackUrl: '/' })}
                 variant="contained" 
                 style={{
                   backgroundColor: 'red',

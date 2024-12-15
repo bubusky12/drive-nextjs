@@ -1,8 +1,9 @@
 'use client';
 
 import { signIn } from 'next-auth/react';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
+import { getSession } from 'next-auth/react';
 
 const LoginPage = () => {
   const [email, setEmail] = useState('');
@@ -10,6 +11,17 @@ const LoginPage = () => {
   const [error, setError] = useState('');
   const router = useRouter();
 
+  useEffect(() => {
+    const checkSession = async () => {
+      const session = await getSession();
+      if (session) {
+        router.push('/dashboard');
+      }
+    };
+    checkSession();
+  }, [router]);
+
+  // Fungsi handle login
   const handleSubmit = async (e) => {
     e.preventDefault();
     const res = await signIn('credentials', {
